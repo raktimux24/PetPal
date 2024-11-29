@@ -40,7 +40,7 @@ export default function Landing() {
       </nav>
 
       {/* Hero Section */}
-      <div className="relative pt-16 pb-32 overflow-hidden">
+      <div className="relative pt-16 pb-32 overflow-hidden grid-pattern">
         <div className="mt-16">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
@@ -127,7 +127,7 @@ export default function Landing() {
       </div>
 
       {/* Expense Tracking Section */}
-      <div id="expense-tracking" className="py-16 bg-white overflow-hidden">
+      <div id="expense-tracking" className="py-16 bg-white grid-pattern overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <div className="flex items-center justify-center mb-4">
@@ -249,7 +249,7 @@ export default function Landing() {
       </div>
 
       {/* Footer */}
-      <footer id="contact" className="bg-gray-50">
+      <footer id="contact" className="bg-gray-50 grid-pattern">
         <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
           <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
             <div>
@@ -319,7 +319,7 @@ export default function Landing() {
           </div>
           <div className="mt-12 border-t border-gray-200 pt-8">
             <p className="text-base text-gray-400 text-center">
-              © 2024 PetPal. All rights reserved | Powered by OpenAI & Gemini AI
+              2024 PetPal. All rights reserved | Powered by OpenAI & Gemini AI
             </p>
           </div>
         </div>
