@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, createRoutesFromElements, Route, Navigate } from 'react-router-dom';
 import { DashboardLayout } from './components/DashboardLayout';
 import { PrivateRoute } from './components/PrivateRoute';
 import { AuthProvider } from './contexts/AuthContext';
@@ -19,43 +19,53 @@ import SignUp from './pages/SignUp';
 import Landing from './pages/Landing';
 
 export default function App() {
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Routes>
+        <Route path="/" element={<Landing />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<SignUp />} />
+        <Route
+          path="/dashboard"
+          element={
+            <PrivateRoute>
+              <DashboardLayout />
+            </PrivateRoute>
+          }
+        >
+          <Route index element={<Dashboard />} />
+          <Route path="add-pet" element={<AddPet />} />
+          <Route path="pet/:id" element={<PetProfile />} />
+          <Route path="profile" element={<Profile />} />
+        </Route>
+        <Route path="*" element={<Navigate to="/" />} />
+      </Routes>
+    ),
+    {
+      future: {
+        v7_startTransition: true,
+        v7_relativeSplatPath: true
+      }
+    }
+  );
+
   return (
-    <BrowserRouter>
-      <AuthProvider>
-        <PetProvider>
-          <HealthRecordProvider>
-            <RoutineProvider>
-              <ActivityProvider>
-                <NotificationProvider>
-                  <BehaviorProvider>
-                    <ExpenseProvider>
-                      <Routes>
-                        <Route path="/" element={<Landing />} />
-                        <Route path="/login" element={<Login />} />
-                        <Route path="/signup" element={<SignUp />} />
-                        <Route
-                          path="/dashboard"
-                          element={
-                            <PrivateRoute>
-                              <DashboardLayout />
-                            </PrivateRoute>
-                          }
-                        >
-                          <Route index element={<Dashboard />} />
-                          <Route path="add-pet" element={<AddPet />} />
-                          <Route path="pet/:id" element={<PetProfile />} />
-                          <Route path="profile" element={<Profile />} />
-                        </Route>
-                        <Route path="*" element={<Navigate to="/" />} />
-                      </Routes>
-                    </ExpenseProvider>
-                  </BehaviorProvider>
-                </NotificationProvider>
-              </ActivityProvider>
-            </RoutineProvider>
-          </HealthRecordProvider>
-        </PetProvider>
-      </AuthProvider>
-    </BrowserRouter>
+    <AuthProvider>
+      <PetProvider>
+        <HealthRecordProvider>
+          <RoutineProvider>
+            <ActivityProvider>
+              <NotificationProvider>
+                <BehaviorProvider>
+                  <ExpenseProvider>
+                    <RouterProvider router={router} />
+                  </ExpenseProvider>
+                </BehaviorProvider>
+              </NotificationProvider>
+            </ActivityProvider>
+          </RoutineProvider>
+        </HealthRecordProvider>
+      </PetProvider>
+    </AuthProvider>
   );
 }
