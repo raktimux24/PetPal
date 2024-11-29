@@ -21,7 +21,7 @@ import Landing from './pages/Landing';
 export default function App() {
   const router = createBrowserRouter(
     createRoutesFromElements(
-      <Routes>
+      <>
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
@@ -39,7 +39,7 @@ export default function App() {
           <Route path="profile" element={<Profile />} />
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
-      </Routes>
+      </>
     ),
     {
       future: {
