@@ -17,6 +17,7 @@ export default function Profile() {
   const { currentUser, updateUserProfile } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const [profile, setProfile] = useState<UserProfile>({
     name: '',
     email: '',
@@ -27,8 +28,12 @@ export default function Profile() {
 
   useEffect(() => {
     const fetchProfile = async () => {
-      if (!currentUser) return;
+      if (!currentUser) {
+        setLoading(false);
+        return;
+      }
 
+      setError(null);
       try {
         const docRef = doc(db, 'users', currentUser.uid);
         const docSnap = await getDoc(docRef);
@@ -41,17 +46,27 @@ export default function Profile() {
             photoURL: currentUser.photoURL || undefined
           });
         } else {
-          // Initialize with user's auth data if no profile exists
-          setProfile({
+          // Initialize profile if it doesn't exist
+          const initialProfile = {
             name: currentUser.displayName || '',
             email: currentUser.email || '',
             location: '',
             address: '',
             photoURL: currentUser.photoURL || undefined
+          };
+          
+          // Create the user document
+          await setDoc(docRef, {
+            ...initialProfile,
+            createdAt: new Date().toISOString(),
+            updatedAt: new Date().toISOString()
           });
+          
+          setProfile(initialProfile);
         }
       } catch (error) {
         console.error('Error fetching profile:', error);
+        setError('Failed to load profile. Please try again later.');
       } finally {
         setLoading(false);
       }
@@ -102,10 +117,46 @@ export default function Profile() {
     setProfile(prev => ({ ...prev, [name]: value }));
   };
 
+  if (!currentUser) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+        <div className="text-center">
+          <h2 className="text-xl font-semibold text-gray-900">Not Authenticated</h2>
+          <p className="mt-2 text-gray-600">Please sign in to view your profile.</p>
+        </div>
+      </div>
+    );
+  }
+
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-gray-500">Loading profile...</div>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading profile...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+        <div className="text-center">
+          <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-red-100 mb-4">
+            <svg className="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </div>
+          <h2 className="text-xl font-semibold text-gray-900">Error Loading Profile</h2>
+          <p className="mt-2 text-gray-600">{error}</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition-colors"
+          >
+            Try Again
+          </button>
+        </div>
       </div>
     );
   }

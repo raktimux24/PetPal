@@ -319,7 +319,7 @@ export default function Landing() {
           </div>
           <div className="mt-12 border-t border-gray-200 pt-8">
             <p className="text-base text-gray-400 text-center">
-              2024 PetPal. All rights reserved | Powered by OpenAI & Gemini AI
+              2024 PetPal. All rights reserved | Powered by OpenAI & Gemini AI | Made with Love in Bengaluru
             </p>
           </div>
         </div>

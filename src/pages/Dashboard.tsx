@@ -123,8 +123,8 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="p-4 sm:p-6 lg:p-8">
-      <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6 sm:mb-8">
+    <div className="p-3 sm:p-4 md:p-6 lg:p-8">
+      <header className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 mb-4 sm:mb-6 lg:mb-8">
         <div>
           <h1 className="text-xl sm:text-2xl font-bold text-gray-900">PetCare Dashboard</h1>
           <p className="text-sm sm:text-base text-gray-500">Monitor your pets' health and activities</p>
@@ -155,13 +155,13 @@ export default function Dashboard() {
         </div>
       </header>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8">
-        <div className="lg:col-span-2 space-y-4 sm:space-y-6 lg:space-y-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 md:gap-6 lg:gap-8">
+        <div className="md:col-span-2 space-y-3 sm:space-y-4 md:space-y-6 lg:space-y-8">
           <DashboardCard title="My Pets">
             {petsLoading ? (
               <div className="text-gray-500 text-center py-4">Loading pets...</div>
             ) : pets.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
+              <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 gap-2 sm:gap-3">
                 {pets.map(pet => (
                   <PetAvatar
                     key={pet.id}
@@ -176,12 +176,12 @@ export default function Dashboard() {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-6 sm:py-8">
-                <div className="inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gray-100 mb-3 sm:mb-4">
+              <div className="text-center py-4 sm:py-6 lg:py-8">
+                <div className="inline-flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-full bg-gray-100 mb-2 sm:mb-3 lg:mb-4">
                   <ClipboardList className="w-5 h-5 sm:w-6 sm:h-6 text-gray-400" />
                 </div>
-                <p className="text-gray-500">No pets added yet</p>
-                <p className="text-xs sm:text-sm text-gray-400 mt-1">
+                <p className="text-sm sm:text-base text-gray-500">No pets added yet</p>
+                <p className="text-xs sm:text-sm text-gray-400 mt-1 sm:mt-2">
                   Add your first pet to start tracking their care
                 </p>
               </div>
@@ -203,12 +203,12 @@ export default function Dashboard() {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-6 sm:py-8">
-                <div className="inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gray-100 mb-3 sm:mb-4">
+              <div className="text-center py-4 sm:py-6 lg:py-8">
+                <div className="inline-flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-full bg-gray-100 mb-2 sm:mb-3 lg:mb-4">
                   <Activity className="w-5 h-5 sm:w-6 sm:h-6 text-gray-400" />
                 </div>
-                <p className="text-gray-500">No recent activities</p>
-                <p className="text-xs sm:text-sm text-gray-400 mt-1">
+                <p className="text-sm sm:text-base text-gray-500">No recent activities</p>
+                <p className="text-xs sm:text-sm text-gray-400 mt-1 sm:mt-2">
                   Activities will appear here once you start logging them
                 </p>
               </div>
@@ -227,10 +227,10 @@ export default function Dashboard() {
             ) : upcomingRoutines.length > 0 ? (
               <div className="space-y-3 sm:space-y-4">
                 {upcomingRoutines.map(routine => (
-                  <div key={routine.id} className="bg-white border border-gray-100 rounded-lg p-3 sm:p-4">
+                  <div key={routine.id} className="bg-white border border-gray-100 rounded-lg p-2 sm:p-3 lg:p-4">
                     <h3 className="font-medium text-gray-900 text-sm sm:text-base">{routine.title}</h3>
                     <div className="mt-1 flex items-center text-xs sm:text-sm text-gray-500">
-                      <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 mr-1" />
+                      <Clock className="w-3 h-3 sm:w-3.5 sm:h-3.5 lg:w-4 lg:h-4 mr-1" />
                       {routine.time}
                     </div>
                     <p className="mt-1 text-xs text-gray-500">
@@ -240,12 +240,12 @@ export default function Dashboard() {
                 ))}
               </div>
             ) : (
-              <div className="text-center py-6 sm:py-8">
-                <div className="inline-flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gray-100 mb-3 sm:mb-4">
+              <div className="text-center py-4 sm:py-6 lg:py-8">
+                <div className="inline-flex items-center justify-center w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 rounded-full bg-gray-100 mb-2 sm:mb-3 lg:mb-4">
                   <Calendar className="w-5 h-5 sm:w-6 sm:h-6 text-gray-400" />
                 </div>
-                <p className="text-gray-500">No upcoming routines</p>
-                <p className="text-xs sm:text-sm text-gray-400 mt-1">
+                <p className="text-sm sm:text-base text-gray-500">No upcoming routines</p>
+                <p className="text-xs sm:text-sm text-gray-400 mt-1 sm:mt-2">
                   Add routines to your pets to see reminders here
                 </p>
               </div>
